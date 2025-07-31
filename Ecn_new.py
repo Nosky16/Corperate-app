@@ -94,3 +94,186 @@ if __name__ == '__main__':
     conn.commit()
     conn.close()
     app.run(debug=True)
+
+#Admin login
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Login - Energy Commission of Nigeria</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .header {
+      background-color: #008000;
+      color: white;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header img {
+      height: 50px;
+      margin: 0 20px;
+    }
+    .login-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-label { font-weight: bold; color: #333; }
+    .btn-primary { background-color: #008000; border-color: #006400; }
+    .btn-primary:hover { background-color: #006400; border-color: #004d00; }
+    .error { color: #dc3545; font-size: 0.9em; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='images/ecn-logo.png') }}" alt="ECN Logo" class="ecn-logo">
+    <h1>Energy Commission of Nigeria</h1>
+    <img src="{{ url_for('static', filename='images/coat-of-arms.png') }}" alt="Nigerian Coat of Arms" class="coat-of-arms">
+  </div>
+  <div class="login-container">
+    <h2 class="text-center mb-4">Admin Login</h2>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <form method="POST" action="/admin_login">
+      <div class="mb-3">
+        <label for="name" class="form-label">Admin Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+</body>
+</html>
+
+#admin register
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Register - Energy Commission of Nigeria</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f0f0; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .header { background-color: #008000; color: white; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+    .header img { height: 50px; margin: 0 20px; }
+    .login-container { background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; }
+    .form-label { font-weight: bold; color: #333; }
+    .btn-primary { background-color: #008000; border-color: #006400; }
+    .btn-primary:hover { background-color: #006400; border-color: #004d00; }
+    .error { color: #dc3545; font-size: 0.9em; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='images/ecn-logo.png') }}" alt="ECN Logo" class="ecn-logo">
+    <h1>Energy Commission of Nigeria</h1>
+    <img src="{{ url_for('static', filename='images/coat-of-arms.png') }}" alt="Nigerian Coat of Arms" class="coat-of-arms">
+  </div>
+  <div class="login-container">
+    <h2 class="text-center mb-4">Admin Registration</h2>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <form method="POST" action="/admin_register">
+      <div class="mb-3">
+        <label for="name" class="form-label">Admin Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+    <a href="/admin_login" class="btn btn-outline-primary w-100 mt-3">Back to Login</a>
+  </div>
+</body>
+</html>
+
+#admin dashboard 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Energy Commission of Nigeria</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f0f0; font-family: Arial, sans-serif; }
+    .header { background-color: #008000; color: white; padding: 10px 0; text-align: center; }
+    .header img { height: 50px; margin: 0 10px; }
+    .container { max-width: 800px; margin-top: 20px; }
+    table { background-color: white; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='images/ecn-logo.png') }}" alt="ECN Logo">
+    <img src="{{ url_for('static', filename='images/coat-of-arms.png') }}" alt="Nigerian Coat of Arms">
+    <h1>Energy Commission of Nigeria</h1>
+  </div>
+  <div class="container">
+    <h2>Admin Dashboard</h2>
+    <h3>Users</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[3] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h3>Loan Applications</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Amount (₦)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in applications %}
+          <tr>
+            <td>{{ app[0] }}</td>
+            <td>{{ app[1] }}</td>
+            <td>{{ app[2] }}</td>
+            <td>{{ app[3] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="/logout" class="btn btn-primary mt-3">Logout</a>
+  </div>
+</body>
+</html>
